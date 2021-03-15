@@ -247,10 +247,12 @@ class bit2c(Exchange):
             request['Total'] = amount * price
             request['IsBid'] = (side == 'buy')
         response = await getattr(self, method)(self.extend(request, params))
-        return {
+        ret = {
             'info': response,
-            'id': response['NewOrder']['id'],
         }
+        if 'NewOrder' in response:
+            ret['id'] = response['NewOrder']['id']
+        return ret
 
     async def cancel_order(self, id, symbol=None, params={}):
         request = {

@@ -274,6 +274,12 @@ class bit2c(Exchange):
         bids = self.safe_value(orders, 'bid', [])
         return self.parse_orders(self.array_concat(asks, bids), market, since, limit)
 
+    async def fetch_order(self, id, symbol=None, params={}):
+        request = {
+            'id': id,
+        }
+        return await self.privateGetOrderGetById(self.extend(request, params))
+
     def parse_order(self, order, market=None):
         timestamp = self.safe_integer(order, 'created')
         price = self.safe_number(order, 'price')

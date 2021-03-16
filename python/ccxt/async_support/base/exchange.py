@@ -326,3 +326,18 @@ class Exchange(BaseExchange):
 
     async def sleep(self, milliseconds):
         return await asyncio.sleep(milliseconds / 1000)
+
+    def is_order_type_buy(self, order_type):
+        raise NotSupported('is_order_type_buy() is not supported yet')
+
+    def is_order_type_sell(self, order_type):
+        raise NotSupported('is_order_type_sell() is not supported yet')
+
+    def is_order_status_type_new(self, order_status_type):
+        raise NotSupported('is_order_status_type_new() is not supported yet')
+
+    def is_order_status_type_open(self, order_status_type):
+        raise NotSupported('is_order_status_type_open() is not supported yet')
+
+    def is_order_status_type_completed(self, order_status_type):
+        raise NotSupported('is_order_status_type_completed() is not supported yet')

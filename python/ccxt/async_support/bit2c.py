@@ -18,6 +18,18 @@ from ccxt.base.errors import PermissionDenied
 from ccxt.base.errors import ArgumentsRequired
 from ccxt.base.errors import InvalidNonce
 from ccxt.base.precise import Precise
+from enum import Enum
+
+
+class OrderStatusType(Enum):
+    New = 0
+    Open = 1
+    Completed = 5
+
+
+class OrderType(Enum):
+    Buy = 0
+    Sell = 1
 
 
 class bit2c(Exchange):
@@ -436,3 +448,18 @@ class bit2c(Exchange):
             self.throw_exactly_matched_exception(self.exceptions['exact'], error, feedback)
             self.throw_broadly_matched_exception(self.exceptions['broad'], error, feedback)
             raise ExchangeError(feedback)  # unknown message
+
+    def is_order_type_buy(self, order_type):
+        return OrderType(order_type) == OrderType.Buy
+
+    def is_order_type_sell(self, order_type):
+        return OrderType(order_type) == OrderType.Sell
+
+    def is_order_status_type_new(self, order_status_type):
+        return OrderStatusType(order_status_type) == OrderStatusType.New
+
+    def is_order_status_type_open(self, order_status_type):
+        return OrderStatusType(order_status_type) == OrderStatusType.Open
+
+    def is_order_status_type_completed(self, order_status_type):
+        return OrderStatusType(order_status_type) == OrderStatusType.Completed
